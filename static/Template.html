@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Personality Test</title>
+  <meta name="description" content="Personality Test">
+  <meta name="author" content="BHS IB">
+
+  <link rel="stylesheet" href="css/Styles.css">
+</head>
+
+<body>
+<form method="POST">
+	{{#each questions}}
+	<div class="question_wrapper" id="{{inc @index}}">
+
+		<h3>Question {{inc @index}}: {{this}}</h3>
+		<input class="resp" type="radio" id="{{inc @index}}_strDis" name="{{inc @index}}" value="-2" />
+		<label class="resp_label" for="{{inc @index}}_strDis">Strongly Disagree</label class="resp_label">
+
+		<input class="resp" type="radio" id="{{inc @index}}_medDis" name="{{inc @index}}" value="-1" />
+		<label class="resp_label" for="{{inc @index}}_medDis">Somewhat Disagree</label class="resp_label">
+
+		<input class="resp" type="radio" id="{{inc @index}}_neu" name="{{inc @index}}" value="0" />
+		<label class="resp_label" for="{{inc @index}}_neu">Neutral</label class="resp_label">
+
+		<input class="resp" type="radio" id="{{inc @index}}_medAgr" name="{{inc @index}}" value="1" />
+		<label class="resp_label" for="{{inc @index}}_medAgr">Somewhat Agree</label class="resp_label">
+
+		<input class="resp" type="radio" id="{{inc @index}}_strAgr" name="{{inc @index}}" value="2" />
+		<label class="resp_label" for="{{inc @index}}_strAgr">Strongly Agree</label class="resp_label">
+			
+	</div>
+	{{/each}}
+    <button type="submit">Submit</button>
+</form>
+</body>

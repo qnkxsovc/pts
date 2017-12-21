@@ -1,0 +1,14 @@
+{
+  "dbConfig": {},
+  "sessStoreConfig":
+  {
+  	"host": "localhost",
+    "port": 6379
+  },
+  "resources": {
+  	"questions": "/static/Questions.json",
+  	"template": "/static/Template.html"
+  },
+  "servPort": 3000,
+  "sessSecret": "super secret"
+}
