@@ -46,12 +46,7 @@ if(!v.validate(questions, schema).valid)
 	throw new Error("Questions.json is formatted incorrecly. For more information, see README.");
 }
 
-var texts = Array(questions.length);
-for(i = 0, len = questions.length; i < len; i++)
-{
-	texts[i] = questions[i]["text"];
-}
-
+var texts = questions.map(q => q["text"]);
 var source = fs.readFileSync("./" + template_path, "utf8");
 var template = handlebars.compile(source);
 var result = template({ "questions": texts });

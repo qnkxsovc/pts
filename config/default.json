@@ -1,5 +1,11 @@
 {
-  "dbConfig": {},
+  "dbConfig": {
+    "host": "localhost",
+    "user": "user",
+    "password": "password",
+    "database": "PST",
+    "connectionLimit": 10
+  },
   "sessStoreConfig":
   {
   	"host": "localhost",

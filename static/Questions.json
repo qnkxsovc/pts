@@ -2,5 +2,9 @@
 	{
 		"text": "Example question",
 		"correlation": 0.123
+	},
+	{
+		"text": "Example question 2",
+		"correlation": 2.0
 	}
 ]

@@ -20,6 +20,7 @@
     "node-sass": "^4.7.2",
     "nodemon": "^1.9.2",
     "jsonschema": "^1.2.2",
-    "handlebars": "^4.0.11"
+    "handlebars": "^4.0.11",
+    "mysql": "^2.15.0"
   }
 }
