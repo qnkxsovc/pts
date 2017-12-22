@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build-css": "sass sass/Styles.scss static/css/Styles.css",
-    "watch-css": "sass --watch sass/:static/css/",
+    "build-css": "sass sass/Styles.scss static/css/frontend/Styles.css",
+    "watch-css": "sass --watch sass/:static/frontend/css/",
     "build-form": "node build-form.js",
-    "clean": "rm -rf static/css && mkdir -p static/css && rm -rf Index.html",
+    "clean": "rm -rf static/css && mkdir -p static/css && rm -rf Test.html",
     "build": "npm run clean && npm run build-css && npm run build-form ",
     "watch": "npm run build & nodemon server",
     "start": "node server"
@@ -21,6 +21,7 @@
     "nodemon": "^1.9.2",
     "jsonschema": "^1.2.2",
     "handlebars": "^4.0.11",
-    "mysql": "^2.15.0"
+    "mysql": "^2.15.0",
+    "bower": "^1.8.2"
   }
 }

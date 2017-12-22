@@ -1,11 +1,14 @@
-var express = require('express');
-var logger = require('morgan');
-var Validator = require("jsonschema").Validator;
-var config = require('config');
 var session = require('express-session');
 var RedisStore = require('connect-redis')(session);
+var Validator = require("jsonschema").Validator;
+var express = require('express');
+var logger = require('morgan');
+var config = require('config');
 var mysql = require("mysql");
 var path = require("path");
+var bodyParser = require("body-parser");
+
+// TODO: Amend initial database checks to include check for person table
 
 // --- Startup ---
 
@@ -14,6 +17,8 @@ var questions_path = path.resolve(config.get("resources.questions"));
 var dbConfig = config.get("dbConfig");
 
 var app = express();
+
+app.use(bodyParser.urlencoded({ "extended": true }));
 
 app.use(session({
   store: new RedisStore(sessStoreConfig),
@@ -24,7 +29,7 @@ try
 {
   var questions = require("./" + questions_path);
 }
-catch(err)
+catch(error)
 {
   throw new Error("Questions.json could be found. Please provide its location in your configuration file. For more information, see README.");
 }
@@ -58,10 +63,10 @@ if(!v.validate(questions, schema).valid)
 // Verify the database has the correct information on startup
 var connectionPool = mysql.createPool(dbConfig);
 
-connectionPool.getConnection(function(err, connection) {
-  if(err)
+connectionPool.getConnection(function(error, connection) {
+  if(error)
   {
-    throw new Error("Error connecting to the database " + err.stack); 
+    throw new Error("Error connecting to the database: " + error.stack); 
   }
   else
   {
@@ -86,14 +91,17 @@ connectionPool.getConnection(function(err, connection) {
         {
           for(var i = 0, len = results.length; i < len; i++)
           {
-            updateQuestions = !(results[i]["text"] == questions[i]["text"] && results[i]["r"] == questions[i]["r"]);
+           if (!(results[i]["text"] == questions[i]["text"] && results[i]["r"] == questions[i]["r"])) 
+            {
+              updateQuestions = true;
+              break;
+            }
           }
         } else updateQuestions = true;
       }
 
       if(updateQuestions)
       {
-        console.log("Warning: the database's questions do not match the questions provided, and will be overwritten.");
         connection.query("TRUNCATE TABLE Questions", function(error, results, fields) { if (error) throw error; });
         var queryString = "INSERT INTO Questions (text, r) VALUES " + questions.map(q => `('${q["text"]}', ${q["correlation"]})`).join();
         connection.query(queryString, function(error, results, fields) { if (error) throw error; });
@@ -102,20 +110,50 @@ connectionPool.getConnection(function(err, connection) {
   connection.release();
 });
 
-
-
-
 app.use(logger('dev'));
-app.use(express.static('static'));
+app.use(express.static('static/frontend'));
 
 console.log("Environment: " + process.env.NODE_ENV);
 
-
-
 // --- General ----
 app.get('/', function (req, res, next) {
-    res.sendFile(path.join(__dirname, 'Index.html'));
+  res.sendFile(path.join(__dirname, 'Index.html'));
 });
+
+app.get('/test', function (req, res, next)
+{
+  res.sendFile(path.join(__dirname, 'Test.html'));
+});
+
+app.post('/finished', function(req, res, next)
+{
+
+  connectionPool.getConnection(function(error, connection) {
+    if (error) throw error;
+    // answers is a JSON string representing all key value pairs where the key starts with q. This separates user identification info from their answers (question form values are like Q1, Q2, Q3)
+    var answers = JSON.stringify(Object.keys(req.body).reduce(function(filtered, key) {
+      if (key.startsWith("Q")) filtered[key] = req.body[key];
+      return filtered;
+    }, {}));
+
+    connection.query(`INSERT INTO TPeople (name, answers) VALUES ('${req.body.username}', '${answers}')`, function(error, results, fields) {
+      req.session.submitted = !(Boolean(error));
+
+      if(error) console.log(error);
+    });
+    connection.release();
+  });
+  
+  res.sendFile(path.join(__dirname, "Finished.html"));
+});
+
+
+app.get('/status', function(req, res, next)
+{
+  res.setHeader('Content-Type', 'application/json');
+  res.send({ "status": req.session.submitted });
+});
+
 
 var servPort = config.get("servPort");
 app.listen(servPort, function () {

@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Personality Test</title>
+  <meta name="description" content="Personality Test">
+  <meta name="author" content="BHS IB">
+
+  <link rel="stylesheet" href="css/Styles.css">
+</head>
+
+<body>
+<form method="POST" action="/finished">
+	<input type="text" name="username" />
+	<br /><br />
+	<div class="question_wrapper" id="Q1">
+
+		<h3>Question 1: Example question</h3>
+		<input class="resp" type="radio" id="Q1_strDis" name="Q1" value="-2" />
+		<label class="resp_label" for="Q1_strDis">Strongly Disagree</label class="resp_label">
+
+		<input class="resp" type="radio" id="Q1_medDis" name="Q1" value="-1" />
+		<label class="resp_label" for="Q1_medDis">Somewhat Disagree</label class="resp_label">
+
+		<input class="resp" type="radio" id="Q1_neu" name="Q1" value="0" />
+		<label class="resp_label" for="Q1_neu">Neutral</label class="resp_label">
+
+		<input class="resp" type="radio" id="Q1_medAgr" name="Q1" value="1" />
+		<label class="resp_label" for="Q1_medAgr">Somewhat Agree</label class="resp_label">
+
+		<input class="resp" type="radio" id="Q1_strAgr" name="Q1" value="2" />
+		<label class="resp_label" for="Q1_strAgr">Strongly Agree</label class="resp_label">
+			
+	</div>
+	<div class="question_wrapper" id="Q2">
+
+		<h3>Question 2: Example question 2</h3>
+		<input class="resp" type="radio" id="Q2_strDis" name="Q2" value="-2" />
+		<label class="resp_label" for="Q2_strDis">Strongly Disagree</label class="resp_label">
+
+		<input class="resp" type="radio" id="Q2_medDis" name="Q2" value="-1" />
+		<label class="resp_label" for="Q2_medDis">Somewhat Disagree</label class="resp_label">
+
+		<input class="resp" type="radio" id="Q2_neu" name="Q2" value="0" />
+		<label class="resp_label" for="Q2_neu">Neutral</label class="resp_label">
+
+		<input class="resp" type="radio" id="Q2_medAgr" name="Q2" value="1" />
+		<label class="resp_label" for="Q2_medAgr">Somewhat Agree</label class="resp_label">
+
+		<input class="resp" type="radio" id="Q2_strAgr" name="Q2" value="2" />
+		<label class="resp_label" for="Q2_strAgr">Strongly Agree</label class="resp_label">
+			
+	</div>
+    <button type="submit">Submit</button>
+</form>
+</body>

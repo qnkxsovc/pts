@@ -19,4 +19,5 @@ logs
 results
 
 node_modules
+static/frontend
 npm-debug.log

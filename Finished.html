@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Personality Test</title>
+  <meta name="description" content="Personality Test">
+  <meta name="author" content="BHS IB">
+
+  <link rel="stylesheet" href="css/Styles.css">
+</head>
+
+<body>
+	<h1>Finished</h1>
+	<p id="indicator">Waiting...</p>
+	<script type="text/javascript" src="jquery/dist/jquery.min.js"></script>
+	<script>
+		window.setTimeout(function() {
+			$.ajax("/status", {
+				"dataType": "json",
+				"success": function(result)
+				{
+					$("#indicator").html(result.status);
+				},
+				"error": function()
+				{
+					$("#indicator").html("An error occurred");
+				}
+			});
+		}, 2000)
+	</script>
+</body>
