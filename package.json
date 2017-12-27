@@ -2,14 +2,14 @@
   "name": "personalitytest",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "build-css": "sass sass/Styles.scss static/css/frontend/Styles.css",
+    "build-css": "sass sass/Styles.scss static/frontend/css/Styles.css",
     "watch-css": "sass --watch sass/:static/frontend/css/",
     "build-form": "node build-form.js",
     "clean": "rm -rf static/css && mkdir -p static/css && rm -rf Test.html",
     "build": "npm run clean && npm run build-css && npm run build-form ",
-    "watch": "npm run build & nodemon server",
+    "watch": "npm run build & npm run watch-css & nodemon ./server.js",
     "start": "node server"
   },
   "author": "",

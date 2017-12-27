@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+
+	<title>Personality Test</title>
+	<meta name="description" content="Personality Test">
+	<meta name="author" content="BHS IB">
+
+	<link rel="stylesheet" href="bootstrap/dist/css/bootstrap-grid.min.css" />
+	<link rel="stylesheet" href="css/Styles.css">
+</head>
+
+<body>
+	<div class="container">
+		<form method="POST" id="main" action="/finished" class="col-md-6 offset-md-3">
+			<div class="section">
+				<h1>Student Information</h1>
+				<hr />
+				<input type="text" name="name" placeholder="Name" />
+				<input type="text" name="idno" placeholder="Student ID Number" />
+			</div>
+
+			<div class="section">
+				<h1>The Test</h1>
+				<hr />
+				<div class="question_wrapper" id="Q1">
+
+					<h3>Question 1: Example question</h3>
+
+					<div class="answers">
+						<input class="resp" type="radio" id="Q1_strDis" name="Q1" value="-2" />
+						<label class="resp_label" for="Q1_strDis"><span>No!</span></label class="resp_label">
+
+						<input class="resp" type="radio" id="Q1_medDis" name="Q1" value="-1" />
+						<label class="resp_label" for="Q1_medDis"><span>No</span></label class="resp_label">
+
+						<input class="resp" type="radio" id="Q1_neu" name="Q1" value="0" />
+						<label class="resp_label" for="Q1_neu"><span>n/a</span></label class="resp_label">
+
+						<input class="resp" type="radio" id="Q1_medAgr" name="Q1" value="1" />
+						<label class="resp_label" for="Q1_medAgr"><span>Yes</span></label class="resp_label">
+
+						<input class="resp" type="radio" id="Q1_strAgr" name="Q1" value="2" />
+						<label class="resp_label" for="Q1_strAgr"><span>Yes!</span></label class="resp_label">
+					</div>
+				</div>
+				<div class="question_wrapper" id="Q2">
+
+					<h3>Question 2: Example question 2</h3>
+
+					<div class="answers">
+						<input class="resp" type="radio" id="Q2_strDis" name="Q2" value="-2" />
+						<label class="resp_label" for="Q2_strDis"><span>No!</span></label class="resp_label">
+
+						<input class="resp" type="radio" id="Q2_medDis" name="Q2" value="-1" />
+						<label class="resp_label" for="Q2_medDis"><span>No</span></label class="resp_label">
+
+						<input class="resp" type="radio" id="Q2_neu" name="Q2" value="0" />
+						<label class="resp_label" for="Q2_neu"><span>n/a</span></label class="resp_label">
+
+						<input class="resp" type="radio" id="Q2_medAgr" name="Q2" value="1" />
+						<label class="resp_label" for="Q2_medAgr"><span>Yes</span></label class="resp_label">
+
+						<input class="resp" type="radio" id="Q2_strAgr" name="Q2" value="2" />
+						<label class="resp_label" for="Q2_strAgr"><span>Yes!</span></label class="resp_label">
+					</div>
+				</div>
+			</div>
+			<a class="button" onclick="document.getElementById('main').submit();">Submit</a>
+		</form>
+	</div>
+</body>

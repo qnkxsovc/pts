@@ -51,4 +51,4 @@ var source = fs.readFileSync("./" + template_path, "utf8");
 var template = handlebars.compile(source);
 var result = template({ "questions": texts });
 
-fs.writeFileSync("Test.html", result);
+fs.writeFileSync("Form.html", result);

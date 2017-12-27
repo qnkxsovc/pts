@@ -1,42 +1,55 @@
-
 <!DOCTYPE html>
 
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+	<meta charset="utf-8">
 
-  <title>Personality Test</title>
-  <meta name="description" content="Personality Test">
-  <meta name="author" content="BHS IB">
+	<title>Personality Test</title>
+	<meta name="description" content="Personality Test">
+	<meta name="author" content="BHS IB">
 
-  <link rel="stylesheet" href="css/Styles.css">
+	<link rel="stylesheet" href="bootstrap/dist/css/bootstrap-grid.min.css" />
+	<link rel="stylesheet" href="css/Styles.css">
 </head>
 
 <body>
-<form method="POST" action="/finished">
-	<input type="text" name="username" />
-	<br /><br />
-	{{#each questions}}
-	<div class="question_wrapper" id="Q{{inc @index}}">
+	<div class="container">
+		<form method="POST" id="main" action="/finished" class="col-md-6 offset-md-3">
+			<div class="section">
+				<h1>Student Information</h1>
+				<hr />
+				<input type="text" name="name" placeholder="Name" />
+				<input type="text" name="idno" placeholder="Student ID Number" />
+			</div>
 
-		<h3>Question {{inc @index}}: {{this}}</h3>
-		<input class="resp" type="radio" id="Q{{inc @index}}_strDis" name="Q{{inc @index}}" value="-2" />
-		<label class="resp_label" for="Q{{inc @index}}_strDis">Strongly Disagree</label class="resp_label">
+			<div class="section">
+				<h1>The Test</h1>
+				<hr />
+				{{#each questions}}
+				<div class="question_wrapper" id="Q{{inc @index}}">
 
-		<input class="resp" type="radio" id="Q{{inc @index}}_medDis" name="Q{{inc @index}}" value="-1" />
-		<label class="resp_label" for="Q{{inc @index}}_medDis">Somewhat Disagree</label class="resp_label">
+					<h3>Question {{inc @index}}: {{this}}</h3>
 
-		<input class="resp" type="radio" id="Q{{inc @index}}_neu" name="Q{{inc @index}}" value="0" />
-		<label class="resp_label" for="Q{{inc @index}}_neu">Neutral</label class="resp_label">
+					<div class="answers">
+						<input class="resp" type="radio" id="Q{{inc @index}}_strDis" name="Q{{inc @index}}" value="-2" />
+						<label class="resp_label" for="Q{{inc @index}}_strDis"><span>No!</span></label class="resp_label">
 
-		<input class="resp" type="radio" id="Q{{inc @index}}_medAgr" name="Q{{inc @index}}" value="1" />
-		<label class="resp_label" for="Q{{inc @index}}_medAgr">Somewhat Agree</label class="resp_label">
+						<input class="resp" type="radio" id="Q{{inc @index}}_medDis" name="Q{{inc @index}}" value="-1" />
+						<label class="resp_label" for="Q{{inc @index}}_medDis"><span>No</span></label class="resp_label">
 
-		<input class="resp" type="radio" id="Q{{inc @index}}_strAgr" name="Q{{inc @index}}" value="2" />
-		<label class="resp_label" for="Q{{inc @index}}_strAgr">Strongly Agree</label class="resp_label">
-			
+						<input class="resp" type="radio" id="Q{{inc @index}}_neu" name="Q{{inc @index}}" value="0" />
+						<label class="resp_label" for="Q{{inc @index}}_neu"><span>n/a</span></label class="resp_label">
+
+						<input class="resp" type="radio" id="Q{{inc @index}}_medAgr" name="Q{{inc @index}}" value="1" />
+						<label class="resp_label" for="Q{{inc @index}}_medAgr"><span>Yes</span></label class="resp_label">
+
+						<input class="resp" type="radio" id="Q{{inc @index}}_strAgr" name="Q{{inc @index}}" value="2" />
+						<label class="resp_label" for="Q{{inc @index}}_strAgr"><span>Yes!</span></label class="resp_label">
+					</div>
+				</div>
+				{{/each}}
+			</div>
+			<a class="button" onclick="document.getElementById('main').submit();">Submit</a>
+		</form>
 	</div>
-	{{/each}}
-    <button type="submit">Submit</button>
-</form>
 </body>

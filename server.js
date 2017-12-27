@@ -22,7 +22,8 @@ app.use(bodyParser.urlencoded({ "extended": true }));
 
 app.use(session({
   store: new RedisStore(sessStoreConfig),
-  secret: config.get("sessSecret")
+  secret: config.get("sessSecret"), 
+  saveUninitialized: true
 }))
 
 try
@@ -122,7 +123,7 @@ app.get('/', function (req, res, next) {
 
 app.get('/test', function (req, res, next)
 {
-  res.sendFile(path.join(__dirname, 'Test.html'));
+  res.sendFile(path.join(__dirname, 'Form.html'));
 });
 
 app.post('/finished', function(req, res, next)
@@ -138,7 +139,6 @@ app.post('/finished', function(req, res, next)
 
     connection.query(`INSERT INTO TPeople (name, answers) VALUES ('${req.body.username}', '${answers}')`, function(error, results, fields) {
       req.session.submitted = !(Boolean(error));
-
       if(error) console.log(error);
     });
     connection.release();

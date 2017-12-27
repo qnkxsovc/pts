@@ -1,3 +1,128 @@
+@import url('https://fonts.googleapis.com/css?family=Great+Vibes|Quattrocento+Sans');
+
+$accent: #CD4E63;
+$dark_accent: #AC3544;
+$fg: #242424;
+$bg: #FFF;
+$borderWidth: 3px;
+$fontsize: 16px;
+
 body {
-	font-size: 18pt;
+	text-align: center;
+}
+
+.impact {
+	font-family: "Great Vibes", cursive;
+  font-size: 64px;
+  font-weight: normal;
+  letter-spacing: 3px;
+  line-height: 1.5;
+}
+
+.resp {
+  position: absolute;
+  visibility: hidden;
+  display: none;
+}
+
+.resp_label {
+  font-family: "Quattrocento Sans", sans-serif;
+  color: $fg;
+  display: inline-block;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 5px 15px;
+}
+
+p {
+  font-family: "Quattrocento Sans", sans-serif;
+  font-size: 16px;
+}
+
+input[type=radio]:checked + label {
+  color: $bg;
+  background: $accent;
+}
+input[type=radio]:hover + label {
+  color: $bg;
+  background: $accent;
+}
+
+input[type=text] {
+  border-radius: 10px;
+  border: solid 3px #E4E4E4;
+  padding: 10px;
+  margin: 10px;
+  width: 100%;
+  &:focus {
+    border: solid 3px #C4C4C4;
+    outline: none;
+  }
+  &::placeholder  { 
+    font-family: "Quattrocento Sans", sans-serif;
+    font-size: 16px;
+  }
+}
+
+label + input[type=radio] + label {
+  border-left: solid $borderWidth $accent;
+  border-right: 0px;
+}
+
+.answers {
+  span {
+    font-size: $fontsize;
+  }
+  border: solid $accent $borderWidth;
+  display: inline-block;
+  margin: 0px 10px 10px 10px;
+  border-radius: 10px;
+  font-size: 0px; /* fixes spacing issue with inline block displays */
+  white-space: nowrap;
+}
+
+.button {
+  &:hover {
+    background: $dark_accent;
+    border: solid $borderWidth $dark_accent;
+    color: $bg; 
+  }
+  &:active {
+    background: $dark_accent;
+    border: solid $borderWidth $dark_accent;
+    color: $bg; 
+  }
+  cursor: pointer;
+  padding: 5px 15px;
+  text-decoration: none;
+  border: solid $borderWidth $accent;
+  border-radius: 10px;
+  font-size: $fontsize;
+  font-weight: 700;
+  font-family: "Quattrocento Sans", sans-serif;
+
+  color: $bg;
+  background: $accent;
+}
+
+#main {
+  h1, h2, h3, h4, h5, h6 {
+    text-align: left;
+    margin: 5px;
+    font-family: "Quattrocento Sans";
+  }
+
+  .section {
+    margin-bottom: 60px;
+  }
+  h1 {
+    font-weight: bold; 
+  }
+
+  .question_wrapper {
+    margin-bottom: 30px;
+    h3 {
+      margin: 10px;
+    }
+  }
 }

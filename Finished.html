@@ -8,26 +8,36 @@
   <meta name="description" content="Personality Test">
   <meta name="author" content="BHS IB">
 
+  <link rel="stylesheet" href="bootstrap/dist/css/bootstrap-grid.min.css" />
   <link rel="stylesheet" href="css/Styles.css">
 </head>
 
 <body>
-	<h1>Finished</h1>
-	<p id="indicator">Waiting...</p>
-	<script type="text/javascript" src="jquery/dist/jquery.min.js"></script>
-	<script>
-		window.setTimeout(function() {
-			$.ajax("/status", {
-				"dataType": "json",
-				"success": function(result)
-				{
-					$("#indicator").html(result.status);
-				},
-				"error": function()
-				{
-					$("#indicator").html("An error occurred");
-				}
-			});
-		}, 2000)
-	</script>
+	<div class="container">
+		<h1 class="impact">Fin</h1>
+		<p id="indicator" class="col-xs-4"><img src="images/loading.gif" /></p>
+		<script type="text/javascript" src="jquery/dist/jquery.min.js"></script>
+		<script>
+			window.setTimeout(function() {
+				$.ajax("/status", {
+					"dataType": "json",
+					"success": function(result)
+					{
+						if(result.status)
+						{
+							$("#indicator").html("Your test answers were submitted successfully. You will be able to purchase the results later in the BHS lunchroom.");
+						}
+						else
+						{
+							$("#indicator").html("An error occurred. Please take the test again.");
+						}
+					},
+					"error": function()
+					{
+						$("#indicator").html("An error occurred. Please take the test again.");
+					}
+				});
+			}, 1000)
+		</script>
+	</div>
 </body>
