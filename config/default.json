@@ -3,7 +3,7 @@
     "host": "localhost",
     "user": "user",
     "password": "password",
-    "database": "PST",
+    "database": "PTS",
     "connectionLimit": 10
   },
   "sessStoreConfig":
