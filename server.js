@@ -23,7 +23,8 @@ app.use(bodyParser.urlencoded({ "extended": true }));
 app.use(session({
   store: new RedisStore(sessStoreConfig),
   secret: config.get("sessSecret"), 
-  saveUninitialized: true
+  saveUninitialized: false,
+  resave: false
 }))
 
 try
@@ -137,8 +138,9 @@ app.post('/finished', function(req, res, next)
       return filtered;
     }, {}));
 
-    connection.query(`INSERT INTO TPeople (name, answers) VALUES ('${req.body.username}', '${answers}')`, function(error, results, fields) {
+    connection.query(`INSERT INTO TPeople (name, idno, answers) VALUES ('${req.body.name}', '${req.body.idno}', '${answers}')`, function(error, results, fields) {
       req.session.submitted = !(Boolean(error));
+      req.session.save(function(error) { if(error) console.log(error); });
       if(error) console.log(error);
     });
     connection.release();

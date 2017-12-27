@@ -49,11 +49,15 @@ input[type=radio]:hover + label {
 }
 
 input[type=text] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   border-radius: 10px;
   border: solid 3px #E4E4E4;
   padding: 10px;
   margin: 10px;
   width: 100%;
+  font-size: 16px;
   &:focus {
     border: solid 3px #C4C4C4;
     outline: none;
