@@ -20,5 +20,6 @@ logs
 results
 
 node_modules
-static/frontend
+static/frontend/*
+!static/frontend/images
 npm-debug.log
