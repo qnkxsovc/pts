@@ -119,12 +119,12 @@ console.log("Environment: " + process.env.NODE_ENV);
 
 // --- General ----
 app.get('/', function (req, res, next) {
-  res.sendFile(path.join(__dirname, 'Index.html'));
+  res.sendFile(path.join(__dirname, "static", 'Index.html'));
 });
 
 app.get('/test', function (req, res, next)
 {
-  res.sendFile(path.join(__dirname, 'Form.html'));
+  res.sendFile(path.join(__dirname, "static", 'Form.html'));
 });
 
 app.post('/finished', function(req, res, next)
@@ -146,7 +146,7 @@ app.post('/finished', function(req, res, next)
     connection.release();
   });
   
-  res.sendFile(path.join(__dirname, "Finished.html"));
+  res.sendFile(path.join(__dirname, "static", "Finished.html"));
 });
 
 
