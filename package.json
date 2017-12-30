@@ -25,6 +25,7 @@
     "bower": "^1.8.2", 
     "express-session": "^1.15.6",
     "connect-redis": "^3.3.2",
-    "config": "^1.29.0"
+    "config": "^1.29.0",
+    "bower": "^1.8.2"
   }
 }

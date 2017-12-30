@@ -24,7 +24,7 @@ app.use(session({
   store: new RedisStore(sessStoreConfig),
   secret: config.get("sessSecret"), 
   saveUninitialized: false,
-  resave: false
+  resave: true
 }))
 
 try
