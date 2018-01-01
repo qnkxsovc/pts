@@ -7,6 +7,7 @@ var config = require('config');
 var mysql = require("mysql");
 var path = require("path");
 var bodyParser = require("body-parser");
+var cookieParser = require("cookie-parser")
 
 // TODO: Amend initial database checks to include check for person table
 
@@ -23,9 +24,11 @@ app.use(bodyParser.urlencoded({ "extended": true }));
 app.use(session({
   store: new RedisStore(sessStoreConfig),
   secret: config.get("sessSecret"), 
-  saveUninitialized: false,
+  saveUninitialized: true,
   resave: true
 }))
+
+app.use(cookieParser(config.get("sessSecret")));
 
 try
 {
