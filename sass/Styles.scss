@@ -2,6 +2,8 @@
 
 $accent: #CD4E63;
 $dark_accent: #AC3544;
+$light_grey: #E4E4E4;
+$dark_grey: #C4C4C4;
 $fg: #242424;
 $bg: #FFF;
 $borderWidth: 3px;
@@ -53,13 +55,19 @@ input[type=text] {
   -moz-appearance: none;
   appearance: none;
   border-radius: 10px;
-  border: solid 3px #E4E4E4;
+  border: solid 3px $light_grey;
   padding: 10px;
-  margin: 10px;
-  width: 100%;
+  margin: 10px 1%;
+  width: 97%;
   font-size: 16px;
+  &.invalid {
+    border: solid 3px $accent;
+    &:focus {
+      border: solid 3px $dark_accent;
+    }
+  }
   &:focus {
-    border: solid 3px #C4C4C4;
+    border: solid 3px $dark_grey;
     outline: none;
   }
   &::placeholder  { 
@@ -71,6 +79,10 @@ input[type=text] {
 label + input[type=radio] + label {
   border-left: solid $borderWidth $accent;
   border-right: 0px;
+}
+
+.name input[type=text] {
+    width:47%;
 }
 
 .answers {

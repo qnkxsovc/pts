@@ -7,9 +7,9 @@
     "build-css": "sass sass/Styles.scss static/frontend/css/Styles.css",
     "watch-css": "sass --watch sass/:static/frontend/css/",
     "build-form": "node build-form.js",
-    "clean": "rm -rf static/css && mkdir -p static/css && rm -rf Test.html",
+    "clean": "rm -rf static/frontend/css && mkdir -p static/frontend/css && rm -rf Test.html",
     "build": "npm run clean && npm run build-css && npm run build-form ",
-    "watch": "npm run build & npm run watch-css & nodemon ./server.js",
+    "watch": "npm run build & npm run watch-css & nodemon ./server.js & onchange static/Template.html -- npm run build-form",
     "start": "node server"
   },
   "author": "",
@@ -27,6 +27,7 @@
     "connect-redis": "^3.3.2",
     "config": "^1.29.0",
     "bower": "^1.8.2",
-    "cookie-parser": "^1.4.3"
+    "cookie-parser": "^1.4.3",
+    "onchange": "^3.3.0"
   }
 }

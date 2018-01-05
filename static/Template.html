@@ -16,11 +16,15 @@
 <body>
 	<div class="container">
 		<form method="POST" id="main" action="/finished" class="col-md-6 offset-md-3">
-			<div class="section">
-				<h1>Student Information</h1>
-				<hr />
-				<input type="text" name="name" placeholder="Name" />
-				<input type="text" name="idno" placeholder="Student ID Number" />
+			<h1>Student Information</h1>
+			<hr />
+
+			<div class="section userinfo">
+				<div class="name">
+					<input type="text" id="firstname" placeholder="First Name" />
+					<input type="text" id="lastname" placeholder="Last Name" />
+				</div>
+				<input type="text" id="idno" placeholder="Student ID Number" />
 			</div>
 
 			<div class="section">
@@ -32,25 +36,46 @@
 					<h3>Question {{inc @index}}: {{this}}</h3>
 
 					<div class="answers">
-						<input class="resp" type="radio" id="Q{{inc @index}}_strDis" name="Q{{inc @index}}" value="-2" />
+						<input class="resp" type="radio" name="Q{{inc @index}}" id="Q{{inc @index}}_strDis" value="-2" />
 						<label class="resp_label" for="Q{{inc @index}}_strDis"><span>No!</span></label class="resp_label">
 
-						<input class="resp" type="radio" id="Q{{inc @index}}_medDis" name="Q{{inc @index}}" value="-1" />
+						<input class="resp" type="radio" name="Q{{inc @index}}" id="Q{{inc @index}}_medDis" value="-1" />
 						<label class="resp_label" for="Q{{inc @index}}_medDis"><span>No</span></label class="resp_label">
 
-						<input class="resp" type="radio" id="Q{{inc @index}}_neu" name="Q{{inc @index}}" value="0" />
+						<input class="resp" type="radio" name="Q{{inc @index}}" id="Q{{inc @index}}_neu" value="0" />
 						<label class="resp_label" for="Q{{inc @index}}_neu"><span>n/a</span></label class="resp_label">
 
-						<input class="resp" type="radio" id="Q{{inc @index}}_medAgr" name="Q{{inc @index}}" value="1" />
+						<input class="resp" type="radio" name="Q{{inc @index}}" id="Q{{inc @index}}_medAgr" value="1" />
 						<label class="resp_label" for="Q{{inc @index}}_medAgr"><span>Yes</span></label class="resp_label">
 
-						<input class="resp" type="radio" id="Q{{inc @index}}_strAgr" name="Q{{inc @index}}" value="2" />
+						<input class="resp" type="radio" name="Q{{inc @index}}" id="Q{{inc @index}}_strAgr" value="2" />
 						<label class="resp_label" for="Q{{inc @index}}_strAgr"><span>Yes!</span></label class="resp_label">
 					</div>
 				</div>
 				{{/each}}
 			</div>
-			<a class="button" onclick="document.getElementById('main').submit();">Submit</a>
+			<a class="button" onclick="validate();">Submit</a>
 		</form>
 	</div>
+	<script type="text/javascript" src="jquery/dist/jquery.min.js"></script>
+	<script>
+
+		var idreg = new RegExp("[0-9]{5}");
+		var namereg = new RegExp("[A-z].+"); // lax name checks because they are matched with database
+
+
+		// I'm choosing a lame design here out of frustration with debugging fancy designs. This works, even if the syntax isn't pretty
+		$("#firstname").focusout(function() { if( $("#firstname").val() && !namereg.test($("#firstname").val()) ) { $("#firstname").addClass("invalid"); submit = false; } else { $("#firstname").removeClass("invalid"); } } );
+		$("#lastname").focusout(function() { if( $("#lastname").val() && !namereg.test($("#lastname").val()) ) { $("#lastname").addClass("invalid"); submit = false; } else { $("#lastname").removeClass("invalid"); } } );
+		$("#idno").focusout(function() { if( $("#idno").val() && !idreg.test($("#idno").val()) ) { $("#idno").addClass("invalid"); submit = false; } else { $("#idno").removeClass("invalid"); } });
+
+
+		function validate() {
+			var submit = true; 
+			if( !namereg.test($("#firstname").val()) ) { $("#firstname").addClass("invalid"); submit = false; } else { $("#firstname").removeClass("invalid"); }
+			if( !namereg.test($("#lastname").val()) ) { $("#lastname").addClass("invalid"); submit = false; } else { $("#lastname").removeClass("invalid"); }
+			if( !idreg.test($("#idno").val()) ) { $("#idno").addClass("invalid"); submit = false; } else { $("#idno").removeClass("invalid"); }
+			if( submit ) { $("#main").submit(); }
+		}
+	</script>
 </body>
