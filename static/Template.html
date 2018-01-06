@@ -21,10 +21,10 @@
 
 			<div class="section userinfo">
 				<div class="name">
-					<input type="text" id="firstname" placeholder="First Name" />
-					<input type="text" id="lastname" placeholder="Last Name" />
+					<input type="text" id="firstname" name="firstname" placeholder="First Name" />
+					<input type="text" id="lastname" name="lastname" placeholder="Last Name" />
 				</div>
-				<input type="text" id="idno" placeholder="Student ID Number" />
+				<input type="text" id="idno" name="idno" placeholder="Student ID Number" />
 			</div>
 
 			<div class="section">
@@ -60,8 +60,8 @@
 	<script type="text/javascript" src="jquery/dist/jquery.min.js"></script>
 	<script>
 
-		var idreg = new RegExp("[0-9]{5}");
-		var namereg = new RegExp("[A-z].+"); // lax name checks because they are matched with database
+		var idreg = new RegExp("^[0-9]{6}$");
+		var namereg = new RegExp("^([\u00c0-\u01ffa-zA-Z'\-])+$"); // lax name checks because they are matched with database
 
 
 		// I'm choosing a lame design here out of frustration with debugging fancy designs. This works, even if the syntax isn't pretty

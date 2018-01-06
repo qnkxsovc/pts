@@ -132,19 +132,55 @@ app.get('/test', function (req, res, next)
 
 app.post('/finished', function(req, res, next)
 {
-
   connectionPool.getConnection(function(error, connection) {
-    if (error) throw error;
+    if (error) {
+      console.log(error);
+      req.session.submitted = false;
+      req.session.error = "There was an error saving your results to the database. Please retake the survey.";
+      req.session.save(function(error) { if(error) console.log(error) });
+    }
     // answers is a JSON string representing all key value pairs where the key starts with q. This separates user identification info from their answers (question form values are like Q1, Q2, Q3)
-    var answers = JSON.stringify(Object.keys(req.body).reduce(function(filtered, key) {
+    var answers = `'${JSON.stringify(Object.keys(req.body).reduce(function(filtered, key) {
       if (key.startsWith("Q")) filtered[key] = req.body[key];
       return filtered;
-    }, {}));
+    }, {}))}'`; // the single quotes added here allow answers to be placed directly into a sql statement, in the same way as the following sanitized parameters
+    var firstname = connection.escape(req.body.firstname.toLowerCase());
+    var lastname = connection.escape(req.body.lastname.toLowerCase());
+    var idno = connection.escape(req.body.idno);
 
-    connection.query(`INSERT INTO TPeople (name, idno, answers) VALUES ('${req.body.name}', '${req.body.idno}', '${answers}')`, function(error, results, fields) {
-      req.session.submitted = !(Boolean(error));
-      req.session.save(function(error) { if(error) console.log(error); });
-      if(error) console.log(error);
+    var isStudent = false;
+    connection.query(`SELECT * FROM TPeople WHERE firstname=${firstname} AND lastname=${lastname} AND idno=${idno};`, function(error, results, fields) {
+
+      if(error) {
+        console.log(error);
+        req.session.submitted = false;
+        req.session.error = "There was an error saving your results to the database. Please retake the survey.";
+        req.session.save(function(error) { if(error) console.log(error) });
+      }
+      else if(results.length != 1) {
+        req.session.submitted = false;
+        req.session.error = "We were not able to find you in the student database. Please submit your name exactly as it appears on your Student ID along with your six digit student ID code.";
+        req.session.save(function(error) { if(error) console.log(error) });
+      }
+      else {
+        isStudent = true;
+      }
+
+      if(isStudent) {
+        connection.query(`UPDATE TPeople SET answers=${answers} WHERE firstname=${firstname} AND lastname=${lastname} AND idno=${idno};`, function(error, results, fields) {
+
+          if(error) {
+            console.log(error);
+            req.session.submitted = false;
+            req.session.error = "There was an error saving your results to the database. Please retake the survey.";
+            req.session.save(function(error) { if(error) console.log(error) });
+          }
+          else {
+            req.session.submitted = true;
+            req.session.save();
+          }
+        });
+      }
     });
     connection.release();
   });
@@ -156,7 +192,7 @@ app.post('/finished', function(req, res, next)
 app.get('/status', function(req, res, next)
 {
   res.setHeader('Content-Type', 'application/json');
-  res.send({ "status": req.session.submitted });
+  res.send({ "status": req.session.submitted, "error": req.session.error });
 });
 
 
